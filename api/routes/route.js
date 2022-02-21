@@ -9,7 +9,7 @@ const habitsController = require("../controllers/Crud")
 
 //get habits
 
-
+router.get('/habits', habitsController.showHabits);
 
 
 
