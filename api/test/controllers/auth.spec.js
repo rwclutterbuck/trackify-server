@@ -61,7 +61,7 @@ describe("Routes controller", () => {
   });
   //   Login: JWT
   describe("Login", () => {
-    it("returns 200 with JSON web token", () => {
+    it("returns 200 with JSON web token", async () => {
       const testUser = {
         username: "mrMuscle",
         password: "Password123",
@@ -77,7 +77,7 @@ describe("Routes controller", () => {
   });
   //   Account: Get
   describe("Account query", () => {
-    it("returns account info with 200 status code", () => {
+    it("returns account info with 200 status code", async () => {
       const userId = "abc123";
 
       await auth.show(userId);
@@ -86,7 +86,7 @@ describe("Routes controller", () => {
   });
   //   Email: Patch
   describe("Change email address", () => {
-    it("returns new email with 200 status code", () => {
+    it("returns new email with 200 status code", async () => {
       const userId = "abc123";
       const testData = {
         oldEmail: "test@example.com",
@@ -102,7 +102,7 @@ describe("Routes controller", () => {
   });
   //   Password: Patch
   describe("change user password", () => {
-    it("returns 204 status code", () => {
+    it("returns 204 status code", async () => {
       const userId = "abc123";
       const testData = {
         oldPass: "Password1",
@@ -117,7 +117,7 @@ describe("Routes controller", () => {
   });
   //   Username: Patch
   describe("change username", () => {
-    it("returns new username and 200 status code", () => {
+    it("returns new username and 200 status code", async () => {
       const userId = "abc123";
       const testData = {
         oldUser: "mrMuscle",
