@@ -9,6 +9,31 @@ class Habits {
         this.habit.history = data.habit.history;
         this.habit.goal = data.habit.goal;
     }
+    //list all habits
+
+
+
+
+
+
+    //create a habit
+
+
+
+
+
+    //update a habit (streak)
+
+
+
+
+    //delete a habit
+
+
+    
+
+
+    //delete everything
 
 
     
