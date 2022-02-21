@@ -9,7 +9,7 @@ const habitsController = require("../controllers/Crud")
 
 //get habits
 
-
+router.get('/habits', habitsController.showHabits);
 
 
 
@@ -27,6 +27,7 @@ const habitsController = require("../controllers/Crud")
 
 
 //delete a habit(destroy)
+
 router.delete('/:id', habitsController.destroy)
 // router.delete('/', habitsController.destroy)
 

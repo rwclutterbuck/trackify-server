@@ -1,14 +1,16 @@
 const db = connect("localhost:27017/habits")
 
+db.habits.drop();
+
 db.habits.insertOne(
     {
-        userId: 1,
-        name: "water",
+        UserId: 1,
+        habit: "water",
         frequency: "daily" ,
         streak: 1,
-        history: "monday",
+        //history: "monday",
         goal: "do this for a year",
-        //lastLog
+    } ,
 
-    }
+    
 )

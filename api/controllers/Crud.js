@@ -1,15 +1,21 @@
 const Habits = require("../models/habits")
-const router = require("../routes/route")
 
 //create a habit
 
 
 
 
-
-
 //list habits
 
+async function showHabits(req,res){
+    try{
+        const userHabits2 = await Habits.allHabits;
+        res.status(200).send(userHabits2)
+    }
+    catch (err){
+        res.status(404).send(err)
+    }
+    }
 
 
 
@@ -23,6 +29,7 @@ const router = require("../routes/route")
 
 
 
+//delete habits
 async function destroy (req, res) {
   
      try {
