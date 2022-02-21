@@ -1,21 +1,31 @@
 version: '3'
 services:
-  api:
-    image: node:17.5.0-alpine3.15
+  server:
+    image: node:12.18.4
     working_dir: /code
-    restart: always
+    ports:
+      - 3000:3000
     environment:
-      - DB_NAME: $DATABASE
-      - DB_CONNECTOIN: mongodb://${ROOT_USERNAME}:${ROOT_PASSWORD}@db:27017
+      - DB_NAME=habits
+      - DB_CONNECTION=mongodb://lytical:password@db:27017
+    depends_on: 
+      - db
     volumes:
       - type: bind
         source: ./api
         target: /code
-    depends_on: db
+    command: bash -c "npm install && node server.js"
+  
   db:
-    image: mongo:5.0.6
+    image: mongo:latest
+    volumes: 
+      - "dbdata:/var/lib/mongodb/data"
+      - "./db/seeds.js:/docker-entrypoint-initdb.d/seeds.js:ro"
     environment:
-      - MONGO_INITDB_ROOT_USERNAME: $ROOT_USERNAME
-      - MONGO_INITDB_ROOT_PASSWORD: $ROOT_PASSWORD
-      - MONGO_INITDB_DATABASE: $DATABASE
-    volumes: "./db/:/docker-entrypoint-initdb.d/:ro"
+      - MONGO_INITDB_ROOT_USERNAME=lytical
+      - MONGO_INITDB_DATABASE=habits
+      - MONGO_INITDB_ROOT_PASSWORD=password
+volumes:
+  dbdata:
+
+
