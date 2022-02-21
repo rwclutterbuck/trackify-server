@@ -13,12 +13,12 @@ class Habits {
     }
     //list all habits of user and add id as a param
     static get all(){
-        return new Promise(async (resolve,reject) => {
+        return new Promise(async (resolve, reject) => {
             try {
                 const db = await init();
                 const Userhabits = await db.collection("habits").find().toArray()
-                const Userhabits1 = Userhabits.map(habit => new Habits({...habit, id: habit._id}))
-                resolve(Userhabits1)
+                // const Userhabits1 = Userhabits.map(habit => new Habits({...habit, id: habit._id}))
+                resolve(Userhabits)
             }
             catch(err){
                 reject("Error retrieving User's habits")
@@ -31,13 +31,21 @@ class Habits {
 
 
     //update a habit (streak)
+    static update() {
+        return new Promise (async (resolve, reject) => {
+            try {
+                const db = await init();
+                let updatedStreakData = await db.collection('habits').findOneAndUpdate({ _id: ObjectId(this.UserId) }, {$inc: { streak: 1 }})
+                let updatedStreak = new Habits(updatedStreakData.value)
+                resolve(updatedStreak);
+            } catch (err) {
+                reject("Unable to update streak")
+            }
+        })
+    }
     
-
-
-
     //delete a habit
-
-    delete(){
+    static delete(){
         return new Promise(async (resolve, reject) => {
             try {
                 const db = await init();

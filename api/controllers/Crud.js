@@ -8,30 +8,32 @@ const Habits = require("../models/habits")
 //list habits
 
 async function showHabits(req, res){
-    try{
+    try {
         const userHabits2 = await Habits.all;
         res.status(200).send(userHabits2)
     }
     catch (err){
-        res.status(404).send(err)
+        res.status(404).send({err})
     }
-    }
+}
 
 
 
 
 
 //update habits
-
-
-
-
-
-
+async function update(req, res) {
+    try {
+        const habit = await Habits.findById(req.params.id)
+        const updatedStreak = await habit.update()
+        res.json({streak: updatedStreak})
+    } catch (err) {
+        res.status(500).send({err})
+    }
+}
 
 //delete habits
-async function destroyOne (req, res) {
-  
+async function destroyOne(req, res) {
      try {
         const habit = await Habits.findById(req.params.id);
         await habit.delete();
@@ -45,7 +47,7 @@ async function destroyOne (req, res) {
 async function destroyAll (req, res) {
   
     try {
-       const habits = await Habits.getAll();
+       const habits = await Habits.all;
        await habits.destroy();
        res.status(204).json('Habits were deleted')
    } catch (err) {
@@ -54,4 +56,4 @@ async function destroyAll (req, res) {
    
 }
 
-module.exports = { destroyOne, destroyAll, showHabits }
+module.exports = { destroyOne, destroyAll, showHabits, update }
