@@ -12,7 +12,7 @@ class Habits {
         this.goal = data.goal;
     }
     //list all habits of user and add id as a param
-    static get allHabits(){
+    static get all(){
         return new Promise(async (resolve,reject) => {
             try {
                 const db = await init();
@@ -24,9 +24,6 @@ class Habits {
                 reject("Error retrieving User's habits")
             }
         })}
-
-
-
 
     //create a habit
 

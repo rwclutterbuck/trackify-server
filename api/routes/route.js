@@ -28,8 +28,8 @@ router.get('/habits', habitsController.showHabits);
 
 //delete a habit(destroy)
 
-router.delete('/:id', habitsController.destroy)
-// router.delete('/', habitsController.destroy)
+router.delete('/habits/:id', habitsController.destroyOne)
+// router.delete('/habits', habitsController.destroyAll)
 
 
 

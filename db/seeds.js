@@ -10,7 +10,5 @@ db.habits.insertOne(
         streak: 1,
         //history: "monday",
         goal: "do this for a year",
-    } ,
-
-    
+    } 
 )
