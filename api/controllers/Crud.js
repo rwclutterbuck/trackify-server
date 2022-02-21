@@ -2,20 +2,20 @@ const Habits = require("../models/habits")
 
 //create a habit
 
-async function showHabits(req,res){
-    try{
-        const userHabits1 = await Habits.allHabits;
-        res.status(200).json(userHabits1)
-    }
-    catch (err){
-        res.status(404).json(err)
-    }
-    }
 
 
 
 //list habits
 
+async function showHabits(req,res){
+    try{
+        const userHabits2 = await Habits.allHabits;
+        res.status(200).send(userHabits2)
+    }
+    catch (err){
+        res.status(404).send(err)
+    }
+    }
 
 
 
