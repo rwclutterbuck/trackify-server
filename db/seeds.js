@@ -1,16 +1,14 @@
-db = connect("localhost:27017/habits")
+const db = connect("localhost:27017/habits")
 
-db.habits.insertOne([
+db.habits.insertOne(
     {
-        id: 1,
-        habit: [{
-            name: "water",
-            frequency: daily ,
-            streak: 1,
-            history: "monday",
-            goal: "do this for a year",
-            //lastLog: 
-        }]
- 
+        userId: 1,
+        name: "water",
+        frequency: "daily" ,
+        streak: 1,
+        history: "monday",
+        goal: "do this for a year",
+        //lastLog
+
     }
-])
+)

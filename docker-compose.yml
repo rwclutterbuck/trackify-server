@@ -1,21 +1,32 @@
 version: '3'
 services:
   api:
-    image: node:17.5.0-alpine3.15
+    image: node:latest
     working_dir: /code
     restart: always
+    ports:
+      - 3000:3000
     environment:
-      - DB_NAME: $DATABASE
-      - DB_CONNECTOIN: mongodb://${ROOT_USERNAME}:${ROOT_PASSWORD}@db:27017
+      - DB_NAME=habit
+      - DB_CONNECTION=mongodb://tracker:habits@db:27017
     volumes:
       - type: bind
         source: ./api
         target: /code
-    depends_on: db
+    command: bash -c "npm install && npm start"
+    depends_on: 
+      - db
+      
   db:
-    image: mongo:5.0.6
+    image: mongo:latest
     environment:
-      - MONGO_INITDB_ROOT_USERNAME: $ROOT_USERNAME
-      - MONGO_INITDB_ROOT_PASSWORD: $ROOT_PASSWORD
-      - MONGO_INITDB_DATABASE: $DATABASE
-    volumes: "./db/:/docker-entrypoint-initdb.d/:ro"
+      - MONGO_INITDB_ROOT_USERNAME=tracker
+      - MONGO_INITDB_ROOT_PASSWORD=habits
+      - MONGO_INITDB_DATABASE=habit
+    volumes: 
+      - "./db/seeds.js:/docker-entrypoint-initdb.d/seeds.js:ro"
+      - "dbdata:/var/lib/mongodb/data"
+volumes:
+  dbdata:
+
+

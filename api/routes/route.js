@@ -1,5 +1,5 @@
 const express = require("express")
-const router = express.Router()
+const router = express.Router();
 const habitsController = require("../controllers/Crud")
 
 
@@ -27,7 +27,8 @@ const habitsController = require("../controllers/Crud")
 
 
 //delete a habit(destroy)
-
+router.delete('/:id', habitsController.destroy)
+// router.delete('/', habitsController.destroy)
 
 
 
