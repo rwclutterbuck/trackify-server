@@ -16,9 +16,9 @@ class Habits {
         return new Promise(async (resolve,reject) => {
             try {
                 const db = await init();
-                const Userhabits = await db.collection("habits").find({habit:a} ).toArray()
-                //const Userhabits1 = Userhabits.map(habit => new Habits({...habit, id: habit._id}))
-                resolve(Userhabits)
+                const Userhabits = await db.collection("habits").find({UserId:a} ).toArray()
+                const Userhabits1 = Userhabits.map(habit => new Habits({...habit, id: habit._id}))
+                resolve(Userhabits1)
             }
             catch(err){
                 reject("Error retrieving User's habits")
@@ -26,15 +26,14 @@ class Habits {
         })}
 
     //get specific habits    
-    static specificHabits(a,specHabit) {
+    static specificHabits(a,b) {
         return new Promise(async(resolve,reject) => {
             try{
                 const db = await init();
-                const specHab = awaitdb.collection("habits").find({
-                    frequency:{$eq:a},
-                    habit:{$eq:specHabit} //needs working on
-                }).toArray();
-                const specHab1 = specHab.map(habit => new Habits({...habit, id: habit._id}))
+                const specHab = await db.collection("habits").find({UserId:a},{habit:b}
+                ).toArray();
+                //const specHab1 = specHab.map(habit => new Habits({...habit, id: habit._id}))
+                resolve(specHab)
             }
 
             catch(err){
@@ -46,8 +45,8 @@ class Habits {
     static createHabit(data){
         return new Promise(async(resolve,reject) => {
             try {
-                const db = await init;
-                const { UserId , habit, frequency, streak, goal} = data
+                const db = await init();
+                /*const { UserId , habit, frequency, streak, goal} = data
                 const result = await db.collection("habits").findOneAndUpdate({
                     UserId: UserId},
                     {$setOnInsert:{
@@ -59,8 +58,12 @@ class Habits {
                     }},
                     {upsert:true}
                 )
-                const newHabit = new Habits({...result.value})
-                resolve(newHabit)
+                const newHabit = new Habits({...result.value, id:ObjectId(result.value._id)})
+                resolve(newHabit)*/
+                console.log(data)
+               let result = await db.collection("habits").insertOne(data) 
+               resolve(result)
+                
             }
             catch(err){
                 reject("Error creating habit")
