@@ -5,7 +5,7 @@ const Habits = require("../models/habits")
 
 async function showHabits(req,res){
     try{
-        const userHabits2 = await Habits.findById(req.params.habit);
+        const userHabits2 = await Habits.findById(req.params.UserId);
         //const userHabits2 = await Habits.findById;
         res.status(200).json(userHabits2)
     }
@@ -28,15 +28,15 @@ async function specificHabit(req,res) {
 
 async function createHabit(req,res){
     try{
-        const newData = {
-            UserId: req.params.UserId,
-            habit: req.params.habit,
-            frequency: req.params.frequency,
-            streak: req.params.streak,
-            goal:req.params.goal,
+        /*const newData = {
+            UserId:req.params.UserId,
+            ...req.body
         }
         const newData2 = await Habits.createHabit(newData);
-        res.status(201).json(newData2);
+        res.status(201).json(newData2);*/
+        const newResult = await Habits.createHabit(req.body)
+        res.status(201).json(newResult)
+        
              
         } catch(err){
             res.status(404).send(err);
