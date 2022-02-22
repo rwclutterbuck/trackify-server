@@ -12,7 +12,7 @@ const habitsController = require("../controllers/Crud")
 router.get('/:habit', habitsController.showHabits);
 router.get("/:frequency/:habit", habitsController.specificHabit)
 //create a habit (post)
-router.post("/", habitsController.createHabit )
+router.post("/", habitsController.createHabit );
 
 
 
