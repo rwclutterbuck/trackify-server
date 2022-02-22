@@ -97,11 +97,11 @@ class Habits {
     }
     
     //delete a habit
-    delete(){
+    static delete({UserId, habit}){
         return new Promise(async (resolve, reject) => {
             try {
                 const db = await init();
-                await db.collection('habits').findOneAndDelete({ _id: ObjectId(this.UserId) })
+                await db.collection('habits').findOneAndDelete({UserId, habit})
                 resolve('Habit was successfully deleted')
             } catch (err) {
                 reject("Habit could not be deleted")
@@ -110,17 +110,17 @@ class Habits {
     }
 
     //delete everything
-    static destroy(){
-        return new Promise(async (resolve, reject) => {
-            try {
-                const db = await init();
-                await db.collection('habits').deleteMany({})
-                resolve('Habits were successfully deleted')
-            } catch (err) {
-                reject("Habits could not be deleted")
-            }
-        })
-    }
+    // static destroy(){
+    //     return new Promise(async (resolve, reject) => {
+    //         try {
+    //             const db = await init();
+    //             await db.collection('habits').deleteMany({})
+    //             resolve('Habits were successfully deleted')
+    //         } catch (err) {
+    //             reject("Habits could not be deleted")
+    //         }
+    //     })
+    // }
 
     
 }
