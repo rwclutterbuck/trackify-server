@@ -16,8 +16,8 @@ async function showHabits(req,res){
 // list specific habits
 async function specificHabit(req,res) {
     try{
-        const a = await Habits.specificHabits(req.params.frequency,req.params.habit);
-        res.status(200).send(a)
+        const a = await Habits.specificHabits(req.params.UserId,req.params.habit);
+        res.status(200).json(a)
     }
     catch(err){
         res.status(404).send(err)
