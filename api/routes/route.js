@@ -9,10 +9,10 @@ const habitsController = require("../controllers/Crud")
 
 //get habits
 
-router.get('/habits', habitsController.showHabits);
-router.get("/specifichabit", habitsController.specificHabit)
+router.get('/:habit', habitsController.showHabits);
+router.get("/:frequency/:habit", habitsController.specificHabit)
 //create a habit (post)
-router.post("/habits", )
+router.post("/", habitsController.createHabit )
 
 
 

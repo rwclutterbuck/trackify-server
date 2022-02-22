@@ -5,8 +5,9 @@ const Habits = require("../models/habits")
 
 async function showHabits(req,res){
     try{
-        const userHabits2 = await Habits.allHabits(req.params.UserId);
-        res.status(200).send(userHabits2)
+        const userHabits2 = await Habits.findById(req.params.habit);
+        //const userHabits2 = await Habits.findById;
+        res.status(200).json(userHabits2)
     }
     catch (err){
         res.status(404).send(err)
@@ -15,7 +16,7 @@ async function showHabits(req,res){
 // list specific habits
 async function specificHabit(req,res) {
     try{
-        const a = await Habits.specificHabits(req.params.UserId,req.params.habit);
+        const a = await Habits.specificHabits(req.params.frequency,req.params.habit);
         res.status(200).send(a)
     }
     catch(err){
@@ -60,4 +61,4 @@ async function createHabit(req,res){
 
 
 
-module.exports = {showHabits , specificHabit} ;
+module.exports = {showHabits , specificHabit,createHabit} ;
