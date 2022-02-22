@@ -1,8 +1,9 @@
 const { Router } = require("express");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const auth = require("../controllers/Auth");
+const router = Router();
+const auth = require("../controllers/auth");
 
-Router.post("/register", auth.register);
+router.post("/register", auth.register);
 
-Router.post("/login", auth.login);
+router.post("/login", auth.login);
+
+module.exports = router;
