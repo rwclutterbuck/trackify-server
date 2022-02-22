@@ -66,10 +66,10 @@ async function update(req, res) {
 }
 
 //delete habits
-async function destroyOne(req, res) {
+async function destroy(req, res) {
      try {
-        const habit = await Habits.findById(req.params.id);
-        await habit.delete();
+        // const habit = await Habits.findById(req.params.id);
+        await Habits.delete(req.body);
         res.status(204).json('Habit was deleted')
     } catch (err) {
         res.status(500).json({err})
@@ -77,16 +77,16 @@ async function destroyOne(req, res) {
     
 }
 
-async function destroyAll (req, res) {
+// async function destroyAll (req, res) {
   
-    try {
-       const habits = await Habits.all;
-       await habits.destroy();
-       res.status(204).json('Habits were deleted')
-   } catch (err) {
-       res.status(500).json({err})
-   }
+//     try {
+//        const habits = await Habits.all;
+//        await habits.destroy();
+//        res.status(204).json('Habits were deleted')
+//    } catch (err) {
+//        res.status(500).json({err})
+//    }
    
-}
+// }
 
-module.exports = { destroyOne, destroyAll, showHabits, update, specificHabit, createHabit, showOne }
+module.exports = { destroy, showHabits, update, specificHabit, createHabit}
