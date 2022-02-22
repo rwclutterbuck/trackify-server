@@ -35,7 +35,7 @@ async function createHabit(req,res){
             streak: req.params.streak,
             goal:req.params.goal,
         }
-        const newData2 = await Habits.createHabit(data);
+        const newData2 = await Habits.createHabit(newData);
         res.status(201).json(newData2);
              
         } catch(err){
