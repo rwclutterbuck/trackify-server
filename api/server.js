@@ -12,7 +12,7 @@ app.get("/", (req,res) => {
     res.send("hello world").status(200)
 })
 
-app.use("/", router)
+app.use("/habits", router)
 
 module.exports = app;
 
