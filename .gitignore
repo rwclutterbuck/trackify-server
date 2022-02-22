@@ -5,5 +5,4 @@ package-lock.json
 dist
 docker-compose.dev.yml
 docker-compose.test.yml
-
-
+.env
