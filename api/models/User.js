@@ -5,7 +5,7 @@ class User {
   constructor(data) {
     this.username = data.username;
     this.email = data.email;
-    this.passwordHash = data.password_hash;
+    this.password = data.password_hash;
     this.lastLogin = data.time;
   }
 
@@ -18,28 +18,27 @@ class User {
         res(users);
       } catch (err) {
         console.log(err);
-        rej("Error retrieving dogs");
+        rej("Error retrieving users");
       }
     });
   }
-
-  static create({ username, email, password }) {
+static create({ username, email, password_hash }) {
     return new Promise(async (res, rej) => {
       try {
         const db = await init();
-        await db.collection("users").insertOne({
-          username,
-          email,
-          password,
+        const userCreate = await db.collection("users").insertOne({
+          username: username,
+          email: email,
+          password_hash: password_hash,
         });
-        res("User created");
+        res(userCreate);
       } catch {
         rej("Error creating new User");
       }
     });
   }
 
-  static findByEmail({ email }) {
+  static findByEmail(email) {
     return new Promise(async (res, rej) => {
       try {
         const db = await init();
