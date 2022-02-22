@@ -1,7 +1,7 @@
 const express = require("express")
 const app = express();
 const cors = require("cors")
-const router = require("./routes/route")
+const habits = require("./routes/habits")
 
 app.use(express.json());
 app.use(cors());
@@ -12,7 +12,7 @@ app.get("/", (req,res) => {
     res.send("hello world").status(200)
 })
 
-app.use("/", router)
+app.use("/habits", habits)
 
 module.exports = app;
 
