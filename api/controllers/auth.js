@@ -14,12 +14,12 @@ async function register(req, res) {
   }
 }
 
-async function login() {
+async function login(req, res) {
   try {
     const user = await User.findByEmail(req.body.email);
     if (!user) new Error("Invalid login credentials");
 
-    const checkUser = bcrypt.compare(req.body.password, user.passwordDigest);
+    const checkUser = await bcrypt.compare(req.body.password, user.password);
     if (!checkUser) new Error("Invalid login credentials");
 
     const payload = {
@@ -28,7 +28,15 @@ async function login() {
       email: user.email,
     };
 
-    jwt.sign(payload, process.env.SECRET, { expiresIn: "30 days" }, sendToken);
+    function sendToken(err, token) {
+      if (err) throw new Error("Error in token generation");
+      res.status(200).json({
+        success: true,
+        token: `Bearer ${token}`,
+      });
+    }
+
+    jwt.sign(payload, "Superduper Secret", { expiresIn: "30 days" }, sendToken);
   } catch (err) {
     console.log(`
       ##########################
@@ -37,14 +45,6 @@ async function login() {
     `);
     res.status(401).json({ err });
   }
-}
-
-function sendToken(err, token) {
-  if (err) throw new Error("Error in token generation");
-  res.status(200).json({
-    success: true,
-    token: `Bearer ${token}`,
-  });
 }
 
 module.exports = {
