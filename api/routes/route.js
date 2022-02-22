@@ -9,7 +9,14 @@ router.get('/habits', habitsController.showHabits);
 router.get('/habits/:id', habitsController.showOne)
 
 
+
+// HAMZA ROUTES
+// router.get('/:habit', habitsController.showHabits);
+// router.get("/:frequency/:habit", habitsController.specificHabit)
+
+
 //create a habit (post)
+// router.post("/", habitsController.createHabit )
 
 
 
