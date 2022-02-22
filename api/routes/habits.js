@@ -10,7 +10,9 @@ router.get("/:frequency/:habit", habitsController.specificHabit);
 //create a habit (post)
 router.post("/", habitsController.createHabit);
 //update a habit(put)
+router.patch('/:id', habitsController.update)
 
 //delete a habit(destroy)
-
+router.delete('/:id', habitsController.destroyOne)
+router.delete('/', habitsController.destroyAll)
 module.exports = router;
