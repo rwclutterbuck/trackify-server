@@ -8,15 +8,27 @@ const mockRes = { status: mockStatus }
 
 describe('habits controller', () => {
     beforeEach(() => jest.clearAllMocks());
+
     afterEach(() => jest.resetAllMocks());
 
-    describe('delete', () => {
+    describe('delete one', () => {
         it('returns a 204 status code when successfully deleted', async () => {
             jest.spyOn(Habits.prototype, 'delete')
                 .mockResolvedValue('deleted');
             
             const mockReq = { params: { id: 1 } }
-            await crudController.delete(mockReq, mockRes)
+            await crudController.destroyOne(mockReq, mockRes)
+            expect(mockStatus).toHaveBeenCalledWith(204);
+        })
+    })
+
+    describe('delete all', () => {
+        it('returns a 204 status code when successfully deleted', async () => {
+            jest.spyOn(Habits.prototype, 'destroy')
+                .mockResolvedValue('deleted');
+            
+            const mockReq = { params: { id: 1 } }
+            await crudController.destroyAll(mockReq, mockRes)
             expect(mockStatus).toHaveBeenCalledWith(204);
         })
     })

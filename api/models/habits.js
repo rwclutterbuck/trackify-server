@@ -17,8 +17,8 @@ class Habits {
             try {
                 const db = await init();
                 const Userhabits = await db.collection("habits").find().toArray()
-                // const Userhabits1 = Userhabits.map(habit => new Habits({...habit, id: habit._id}))
-                resolve(Userhabits)
+                const Userhabits1 = Userhabits.map(habit => new Habits({...habit, id: habit._id}))
+                resolve(Userhabits1)
             }
             catch(err){
                 reject("Error retrieving User's habits")
@@ -28,6 +28,21 @@ class Habits {
     //create a habit
 
 
+
+
+
+    static findById(id){
+        return new Promise (async (resolve, reject) => {
+            try {
+                const db = await init();
+                let habitsData = await db.collection('habits').find({ habit:id }).toArray()
+                // let habits = new Habits(...habitsData[0], habitsData.habit)
+                resolve(habitsData)
+            } catch (err) {
+                reject('Habit not found')
+            }
+        })
+    }
 
 
     //update a habit (streak)
@@ -45,11 +60,11 @@ class Habits {
     }
     
     //delete a habit
-    static delete(){
+    delete(){
         return new Promise(async (resolve, reject) => {
             try {
                 const db = await init();
-                await db.collection('habits').deleteOne({ _id: ObjectId(this.id) })
+                await db.collection('habits').findOneAndDelete({ _id: ObjectId(this.UserId) })
                 resolve('Habit was successfully deleted')
             } catch (err) {
                 reject("Habit could not be deleted")
@@ -58,7 +73,7 @@ class Habits {
     }
 
     //delete everything
-    destroy(){
+    static destroy(){
         return new Promise(async (resolve, reject) => {
             try {
                 const db = await init();

@@ -17,8 +17,14 @@ async function showHabits(req, res){
     }
 }
 
-
-
+async function showOne(req, res) {
+    try {
+        const habit = await Habits.findById(req.params.habit)
+        res.status(200).send(habit)
+    } catch (err) {
+        res.status(404).send({err})
+    }
+}
 
 
 //update habits
@@ -56,4 +62,4 @@ async function destroyAll (req, res) {
    
 }
 
-module.exports = { destroyOne, destroyAll, showHabits, update }
+module.exports = { destroyOne, destroyAll, showHabits, update, showOne }

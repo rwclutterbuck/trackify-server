@@ -6,7 +6,7 @@ const habitsController = require("../controllers/Crud")
 //get habits
 
 router.get('/habits', habitsController.showHabits);
-
+router.get('/habits/:id', habitsController.showOne)
 
 
 //create a habit (post)
