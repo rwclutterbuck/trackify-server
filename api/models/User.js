@@ -1,8 +1,9 @@
 const { init } = require("../initdb");
-//const { ObjectId } = require("mongodb");
+const { ObjectId } = require("mongodb");
 
 class User {
   constructor(data) {
+    this.UserId = data.id;
     this.username = data.username;
     this.email = data.email;
     this.password = data.password_hash;
@@ -22,7 +23,7 @@ class User {
       }
     });
   }
-static create({ username, email, password_hash }) {
+  static create({ username, email, password_hash }) {
     return new Promise(async (res, rej) => {
       try {
         const db = await init();
@@ -42,11 +43,9 @@ static create({ username, email, password_hash }) {
     return new Promise(async (res, rej) => {
       try {
         const db = await init();
-        const userData = await db
-          .collection("users")
-          .find({ email: email })
-          .toArray();
-        const user = new User(userData[0]);
+        const userData = await db.collection("users").findOne({ email: email });
+        console.log(ObjectId(userData._id));
+        const user = new User({ ...userData, id: ObjectId(userData._id) });
         res(user);
       } catch {
         rej("User not found");
