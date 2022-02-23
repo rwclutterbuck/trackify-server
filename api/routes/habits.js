@@ -12,9 +12,9 @@ router.get("/:UserId/:habit", habitsController.specificHabit);
 //create a habit (post)
 router.post("/", habitsController.createHabit);
 //update a habit(put)
-router.patch("/:id", habitsController.update);
+router.patch("/:UserId/:habit", habitsController.updateStreak);
 
 //delete a habit(destroy)
-router.delete("/:id", habitsController.destroy);
+router.delete("/:UserId/:habit", habitsController.destroy);
 // router.delete('/', habitsController.destroyAll)
 module.exports = router;

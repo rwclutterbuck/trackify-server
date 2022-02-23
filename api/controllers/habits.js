@@ -4,7 +4,7 @@ const Habits = require("../models/Habit");
 
 async function showHabits(req, res) {
   try {
-    const userHabits2 = await Habits.findById(req.params.UserId);
+    const userHabits2 = await Habits.findByUserId(req.params.UserId);
     //const userHabits2 = await Habits.findById;
     res.status(200).json(userHabits2);
   } catch (err) {
@@ -51,9 +51,24 @@ async function createHabit(req, res) {
 //update habits
 async function update(req, res) {
   try {
-    const habit = await Habits.specificHabit(req.params.id);
-    const updatedStreak = await habit.update();
-    res.json({ streak: updatedStreak });
+    const habit = await Habits.update(req.params.id, req.body);
+    res.json(habit);
+  } catch (err) {
+    res.status(500).send({ err });
+  }
+}
+
+async function updateStreak(req, res) {
+  try {
+    const thisHabit = await Habits.specificHabits(
+      req.params.UserId,
+      req.params.habit
+    );
+    console.log("habit contents");
+    console.log(thisHabit);
+    const habit = await thisHabit.updateStreak();
+    console.log(habit);
+    res.json(habit);
   } catch (err) {
     res.status(500).send({ err });
   }
@@ -63,7 +78,11 @@ async function update(req, res) {
 async function destroy(req, res) {
   try {
     // const habit = await Habits.findById(req.params.id);
-    await Habits.delete(req.body);
+    const thisHabit = await Habits.specificHabits(
+      req.params.UserId,
+      req.params.habit
+    );
+    await thisHabit.delete();
     res.status(204).json("Habit was deleted");
   } catch (err) {
     res.status(500).json({ err });
@@ -82,4 +101,11 @@ async function destroy(req, res) {
 
 // }
 
-module.exports = { destroy, showHabits, update, specificHabit, createHabit };
+module.exports = {
+  destroy,
+  showHabits,
+  update,
+  specificHabit,
+  createHabit,
+  updateStreak,
+};

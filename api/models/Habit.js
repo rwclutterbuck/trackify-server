@@ -1,5 +1,5 @@
 const { init } = require("../initdb");
-const { ObjectId } = require("mongodb");
+const { ObjectId, Db } = require("mongodb");
 
 class Habits {
   constructor(data) {
@@ -12,7 +12,7 @@ class Habits {
     this.goal = data.goal;
   }
   //list all habits of user and add id as a param
-  static findById(a) {
+  static findByUserId(a) {
     return new Promise(async (resolve, reject) => {
       try {
         const db = await init();
@@ -37,10 +37,10 @@ class Habits {
         const db = await init();
         const specHab = await db
           .collection("habits")
-          .find({ UserId: a, habit: b })
-          .toArray();
+          .findOne({ UserId: a, habit: b });
         //const specHab1 = specHab.map(habit => new Habits({...habit, id: habit._id}))
-        resolve(specHab);
+        const newHabit = new Habits({ ...specHab, id: specHab._id });
+        resolve(newHabit);
       } catch (err) {
         reject("Error retrieving habit");
       }
@@ -66,7 +66,6 @@ class Habits {
                 )
                 const newHabit = new Habits({...result.value, id:ObjectId(result.value._id)})
                 resolve(newHabit)*/
-        console.log(data);
         let result = await db.collection("habits").insertOne(data);
         resolve(result);
       } catch (err) {
@@ -106,13 +105,33 @@ class Habits {
       }
     });
   }
-
-  //delete a habit
-  static delete({ UserId, habit }) {
+  // update streak
+  updateStreak() {
     return new Promise(async (resolve, reject) => {
       try {
         const db = await init();
-        await db.collection("habits").findOneAndDelete({ UserId, habit });
+        const updateStreak = await db
+          .collection("habits")
+          .findOneAndUpdate(
+            { _id: ObjectId(this.id) },
+            { $inc: { streak: 1 } },
+            { returnDocument: "after" }
+          );
+        console.log(updateStreak);
+        resolve(updateStreak);
+      } catch (err) {
+        reject("Error updating User's streak");
+        console.log(err);
+      }
+    });
+  }
+
+  //delete a habit
+  delete() {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const db = await init();
+        await db.collection("habits").deleteOne({ _id: ObjectId(this.id) });
         resolve("Habit was successfully deleted");
       } catch (err) {
         reject("Habit could not be deleted");
