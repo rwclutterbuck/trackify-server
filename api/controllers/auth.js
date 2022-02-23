@@ -24,12 +24,11 @@ async function login(req, res) {
     if (!checkUser) new Error("Invalid login credentials");
 
     const payload = {
-      UserId: user.id,
+      UserId: user.UserId,
       username: user.username,
       email: user.email,
     };
 
-    console.log(payload);
     function sendToken(err, token) {
       if (err) throw new Error("Error in token generation");
       res.status(200).json({

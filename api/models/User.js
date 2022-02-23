@@ -44,8 +44,7 @@ class User {
       try {
         const db = await init();
         const userData = await db.collection("users").findOne({ email: email });
-        console.log(ObjectId(userData._id));
-        const user = new User({ ...userData, id: ObjectId(userData._id) });
+        const user = new User({ ...userData, id: userData._id.toString() });
         res(user);
       } catch {
         rej("User not found");
