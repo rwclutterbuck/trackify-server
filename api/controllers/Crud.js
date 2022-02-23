@@ -8,11 +8,13 @@ async function showHabits(req,res){
         const userHabits2 = await Habits.findById(req.params.UserId);
         //const userHabits2 = await Habits.findById;
         res.status(200).json(userHabits2)
+
     }
     catch (err){
-        res.status(404).send(err)
+        res.status(404).send({err})
     }
-    }
+}
+
 // list specific habits
 async function specificHabit(req,res) {
     try{
@@ -23,6 +25,15 @@ async function specificHabit(req,res) {
         res.status(404).send(err)
     }
 }
+
+// async function showOne(req, res) {
+//     try {
+//         const habit = await Habits.findById(req.params.habit)
+//         res.status(200).send(habit)
+//     } catch (err) {
+//         res.status(404).send({err})
+//     }
+// }
 
 //create a habit
 
@@ -41,24 +52,43 @@ async function createHabit(req,res){
         } catch(err){
             res.status(404).send(err);
 
-        }}
-  
-
-
-
+        }
+    }
 
 
 //update habits
-
-
-
-
-
+async function update(req, res) {
+    try {
+        const habit = await Habits.specificHabit(req.params.id)
+        const updatedStreak = await habit.update()
+        res.json({streak: updatedStreak})
+    } catch (err) {
+        res.status(500).send({err})
+    }
+}
 
 //delete habits
+async function destroy(req, res) {
+     try {
+        // const habit = await Habits.findById(req.params.id);
+        await Habits.delete(req.body);
+        res.status(204).json('Habit was deleted')
+    } catch (err) {
+        res.status(500).json({err})
+    }
+    
+}
 
+// async function destroyAll (req, res) {
+  
+//     try {
+//        const habits = await Habits.all;
+//        await habits.destroy();
+//        res.status(204).json('Habits were deleted')
+//    } catch (err) {
+//        res.status(500).json({err})
+//    }
+   
+// }
 
-
-
-
-module.exports = {showHabits , specificHabit,createHabit} ;
+module.exports = { destroy, showHabits, update, specificHabit, createHabit}
