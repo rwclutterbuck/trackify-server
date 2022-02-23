@@ -1,4 +1,4 @@
-const Habits = require("../models/Habits");
+const Habits = require("../models/Habit");
 
 //list habits
 
