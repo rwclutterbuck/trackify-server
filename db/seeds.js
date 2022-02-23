@@ -2,7 +2,7 @@ const db = connect("localhost:27017/habits");
 
 db.habits.drop();
 
-db.habits.insertOne(
+db.habits.insertMany([
   {
     UserId: "1",
     habit: "water",
@@ -31,6 +31,6 @@ db.habits.insertOne(
     frequency: "daily",
     streak: 2,
     goal: "lose 5kg",
-  }
-);
+  },
+]);
 //add username
