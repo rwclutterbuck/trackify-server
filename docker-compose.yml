@@ -3,13 +3,16 @@ services:
   api:
     image: node:17-alpine3.15
     working_dir: /code
-    ports: 3000:3000
+    ports:
+      - 3000:3000
     environment:
       - DB_NAME=${DATABASE}
       - DB_CONNECTION=mongodb://${ROOT_USER}:${PASSWORD}@db:27017
       - SECRET=${SECRET}
-    depends_on: db
-    volumes: ./api:/code
+    depends_on:
+      - db
+    volumes:
+      - ./api:/code
     command: sh -c "npm install && npm start"
     restart: always
 
