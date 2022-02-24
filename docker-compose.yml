@@ -8,6 +8,7 @@ services:
     environment:
       - DB_NAME=${DATABASE}
       - DB_CONNECTION=mongodb://${ROOT_USER}:${PASSWORD}@db:27017
+      - SECRET=${SECRET}
     depends_on:
       - db
     volumes:

@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const secret = process.env.SECRET;
 
 const User = require("../models/User");
 
@@ -23,7 +24,7 @@ async function login(req, res) {
     if (!checkUser) new Error("Invalid login credentials");
 
     const payload = {
-      uid: user._id,
+      UserId: user.UserId,
       username: user.username,
       email: user.email,
     };
@@ -35,13 +36,12 @@ async function login(req, res) {
         token: `Bearer ${token}`,
       });
     }
-
-    jwt.sign(payload, "Superduper Secret", { expiresIn: "30 days" }, sendToken);
+    jwt.sign(payload, secret, { expiresIn: "30 days" }, sendToken);
   } catch (err) {
     console.log(`
-      ##########################
-      Error authenticating user: ${req.body.email}
-      ##########################
+##########################
+Error authenticating user: ${req.body.email}
+##########################
     `);
     res.status(401).json({ err });
   }
