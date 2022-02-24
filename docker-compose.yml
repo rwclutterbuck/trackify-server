@@ -12,9 +12,7 @@ services:
     depends_on:
       - db
     volumes:
-      - type: bind
-        source: ./api
-        target: /code
+      - ./api:/code
     command: sh -c "npm install && npm start"
     restart: always
 
