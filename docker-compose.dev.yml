@@ -1,15 +1,12 @@
+version: "3"
 services:
   api:
     container_name: proj_dev_api
     command: sh -c "npm install && npm run dev"
-    restart: always
   db:
     container_name: proj_dev_db
-    volumes:
-      - dbdata:/var/lib/mongodb/data
-    restart: always
+    volumes: dbdata:/var/lib/mongodb/data
 volumes:
   dbdata:
 networks:
   default:
-    name: example_app_dev
