@@ -1,6 +1,5 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const secret = process.env.SECRET;
 
 const User = require("../models/User");
 
@@ -36,7 +35,7 @@ async function login(req, res) {
         token: `Bearer ${token}`,
       });
     }
-    jwt.sign(payload, secret, { expiresIn: "30 days" }, sendToken);
+    jwt.sign(payload, process.env.SECRET, { expiresIn: 3600 }, sendToken);
   } catch (err) {
     console.log(`
 ##########################
