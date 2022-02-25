@@ -1,5 +1,5 @@
 // Auth Model
-const Auth = require("../../models/Auth");
+const Auth = require("../../controllers/auth");
 const db = null; 
 
 // Methods to test

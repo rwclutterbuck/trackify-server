@@ -52,7 +52,7 @@ async function createHabit(req, res) {
 async function update(req, res) {
   try {
     const habit = await Habits.update(req.params.id, req.body);
-    res.json(habit);
+    res.json(habit).status(204);
   } catch (err) {
     res.status(500).send({ err });
   }
@@ -68,7 +68,7 @@ async function updateStreak(req, res) {
     console.log(thisHabit);
     const habit = await thisHabit.updateStreak();
     console.log(habit);
-    res.json(habit);
+    res.json(habit).status(204);
   } catch (err) {
     res.status(500).send({ err });
   }
