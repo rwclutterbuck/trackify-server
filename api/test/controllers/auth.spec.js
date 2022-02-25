@@ -1,7 +1,7 @@
 // Controller for Auth routes
 
 const auth = require("../../controllers/auth");
-const Auth = require("../../models/Auth");
+const Auth = require("../../models/User");
 
 const mockSend = jest.fn();
 const mockJson = jest.fn();

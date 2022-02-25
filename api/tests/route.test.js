@@ -1,6 +1,6 @@
 const request = require("supertest")
 const server = require("../server")
-const router = require("../routes/route")
+const router = require("../routes/habits")
 const test1 = require("jest")
 
 describe("server", () => {
@@ -9,5 +9,10 @@ describe("server", () => {
         .get("/")
         .expect(200, done)
     })
+
+})
+
+describe("endpoints", () => {
+    let server;
 
 })
